@@ -55,12 +55,14 @@ jobs:
       run: |
         cp -r ../SCRIPTS/. ./
         /bin/bash 02_prepare_package.sh
+        /bin/bash custom.sh
         /bin/bash 02_target_only.sh
         /bin/bash 04_remove_upx.sh
     - name: QTMDFW4
       working-directory: ${{ github.workspace }}/openwrt
       run: |
-        cp -rf ../SEED/X86/config.seed .config
+        #cp -rf ../SEED/X86/config.seed .config
+        cp -rf ../SEED/X86/config_custom.seed .config
     - name: Convert Translation
       working-directory: ${{ github.workspace }}/openwrt
       run: |
@@ -129,7 +131,7 @@ jobs:
       id: create_release
       uses: ncipollo/release-action@main
       with:
-        name: OpenWRT-${{ env.latest_release }}
+        name: OpenWRT-Mini-${{ env.latest_release }}
         allowUpdates: true
         prerelease: false
         tag: ${{ env.latest_release }}
